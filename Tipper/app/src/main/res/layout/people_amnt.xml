@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="20dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:textColorHint="#32A0A0"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+        <EditText
+            android:inputType="number"
+            android:hint="How Many People Dined"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:id="@+id/totalpplAmnt"
+            android:maxLines="1"
+            android:layout_width="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:text="&#xf00c;"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkMark"
+        android:gravity="center"
+        android:textColor="@android:color/transparent"
+        android:textSize="30sp" />
+
+</LinearLayout>
