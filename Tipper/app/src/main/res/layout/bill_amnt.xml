@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:id="@+id/tipAmntFrag">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app ="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:textColorHint="#32A0A0"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:inputType="number"
+                android:hint="Total Bill Amount"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:id="@+id/totalBillAmnt"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_margin="20dp">
+
+            <TextView
+                android:id="@+id/orText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="OR"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toLeftOf="@id/orText"
+                android:background="#FFF"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_toRightOf="@id/orText"
+                android:background="#FFF"
+                />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:text="&#xf030;"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/camera"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+    <TextView
+        android:text="&#xf054;"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/arrow"
+        android:gravity="center"
+        android:textColor="@android:color/transparent"
+        android:textSize="30sp" />
+
+</LinearLayout>
