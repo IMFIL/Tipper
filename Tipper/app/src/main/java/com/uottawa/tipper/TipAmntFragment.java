@@ -1,5 +1,6 @@
 package com.uottawa.tipper;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -17,13 +18,22 @@ import android.widget.TextView;
  * Created by filipslatinac on 2017-05-10.
  */
 public class TipAmntFragment extends Fragment {
-
+    private View rootView;
     private TextView [] tviews;
     private int currentSelection = -1;
     private Typeface fontAwesome;
     private EditText tip;
     private TextView arrow;
     private boolean numberIn;
+
+    private booleanTipPass dataPasser;
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        dataPasser = (booleanTipPass) context;
+
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,7 +42,7 @@ public class TipAmntFragment extends Fragment {
         Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
 
 
-        View rootView = inflater.inflate(R.layout.tip_amnt, container,
+        rootView = inflater.inflate(R.layout.tip_amnt, container,
                 false);
 
         tviews = new TextView[]{
@@ -44,6 +54,9 @@ public class TipAmntFragment extends Fragment {
         };
 
         arrow = (TextView) rootView.findViewById(R.id.arrow);
+
+        TextView percentage = (TextView) rootView.findViewById(R.id.percentage);
+        percentage.setTypeface(fontAwesome);
 
         tip = (EditText) rootView.findViewById(R.id.totalTipAmnt);
         tip.addTextChangedListener(new TextWatcher() {
@@ -71,16 +84,22 @@ public class TipAmntFragment extends Fragment {
                 String tipValue = String.valueOf(tip.getText()).trim();
 
                 if (tipValue.length() != 0 && !numberIn){
+                    int tipamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
                     arrow.setTypeface(fontAwesome);
                     arrow.setTextColor(Color.parseColor("#32A0A0"));
                     arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+                    dataPasser.onBooleanTipChange(true,tipamnt);
+
                 }
 
                 else if (numberIn && tipValue.length() != 0 ) {
+                    int tipamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
+                    dataPasser.onBooleanTipChange(false,tipamnt);
                 }
 
                 else{
                     arrow.setTextColor(Color.TRANSPARENT);
+                    dataPasser.onBooleanTipChange(false,0);
                 }
 
             }
@@ -150,7 +169,7 @@ public class TipAmntFragment extends Fragment {
                 tviews[i].setTextColor(Color.GRAY);
             }
             currentSelection = number;
-            tip.setText(Integer.toString(number*2+10) + "%");
+            tip.setText(Integer.toString(number*2+10));
         }
 
     }

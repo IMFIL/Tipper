@@ -13,23 +13,39 @@
         android:layout_gravity="center"
         android:layout_margin="20dp">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:textColorHint="#32A0A0"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-            <EditText
+            <TextView
+                android:text="&#xf155;"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:id="@+id/curency_sign"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:gravity="center" />
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:inputType="number"
-                android:hint="Total Bill Amount"
+                android:layout_weight="1"
+                android:textColorHint="#32A0A0"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:id="@+id/totalBillAmnt"
-                android:maxLines="1" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_margin="20dp"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:hint="Total Bill Amount"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:id="@+id/totalBillAmnt"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
