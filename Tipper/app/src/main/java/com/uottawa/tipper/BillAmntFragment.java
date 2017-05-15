@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,15 +40,35 @@ public class BillAmntFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.bill_amnt, container,
-                false);
-
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
 
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String defaultValue= "Dollar";
+        String currencyText = sharedPref.getString("Currency", defaultValue);
+
+        rootView = inflater.inflate(R.layout.bill_amnt, container,
+                false);
+
         TextView currency = (TextView) rootView.findViewById(R.id.curency_sign);
 
+
+        switch (currencyText){
+            case "Dollar":
+                currency.setText("\uf155");
+                break;
+            case "Euro":
+                currency.setText("\uf153");
+                break;
+            case "British Pound":
+                currency.setText("\uf154");
+                break;
+            default:
+                break;
+        }
+
         currency.setTypeface(fontAwesome);
+
 
             TextView or = (TextView) rootView.findViewById(R.id.orText);
             TextView camera = (TextView) rootView.findViewById(R.id.camera);
@@ -94,7 +113,7 @@ public class BillAmntFragment extends Fragment {
                     }
 
                     else if (numberIn && tipValue.length() != 0 ) {
-                        double billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
+                        double billamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
                         dataPasser.onBooleanBillChange(true,billamnt);
                     }
 
