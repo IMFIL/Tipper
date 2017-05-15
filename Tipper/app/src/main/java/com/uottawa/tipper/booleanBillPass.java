@@ -5,5 +5,5 @@ package com.uottawa.tipper;
  */
 
 public interface booleanBillPass {
-    public void onBooleanBillChange(boolean changed,int amnt);
+    public void onBooleanBillChange(boolean changed,double amnt);
 }

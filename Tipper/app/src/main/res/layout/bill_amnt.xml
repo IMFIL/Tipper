@@ -39,6 +39,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:inputType="number"
+                    android:digits="0123456789."
                     android:hint="Total Bill Amount"
                     android:layout_height="wrap_content"
                     android:textSize="25sp"

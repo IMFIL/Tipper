@@ -2,13 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="center"
-    android:id="@+id/window">
+    android:id="@+id/window"
+    android:background="#80000000">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -16,144 +15,162 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
+            <TextView
+                android:text="&#xf00d;"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/exitPopUp"
+                android:textSize="30sp"
+                android:gravity="top|right"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp" />
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingBottom="20dp">
+                    android:gravity="center">
 
-                    <TextView
-                        android:text="Dinning Cost"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView"
-                        android:textSize="20sp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textColor="@android:color/white" />
+                        android:paddingBottom="20dp">
 
-                    <TextView
+                        <TextView
+                            android:text="Dinning Cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dinnigCostTV"
+                            android:textSize="30sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dinnigCost"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dinnigCost"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:paddingBottom="20dp">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="20dp">
+                        <TextView
+                            android:text="Tip Total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tipAmntTV"
+                            android:textSize="30sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
 
-                    <TextView
-                        android:text="Tip Total"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tipAmnt"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
+                        android:layout_height="match_parent"
+                        android:paddingBottom="20dp">
 
-                    <TextView
+                        <TextView
+                            android:text="Total Cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/totalCostTV"
+                            android:textSize="30sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/totalCost"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tipAmnt"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:paddingBottom="20dp">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="20dp">
+                        <TextView
+                            android:text="Number of People"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:id="@+id/pplAmntTV"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
 
-                    <TextView
-                        android:text="Total Cost"
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pplAmnt"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
+                        android:layout_height="match_parent"
+                        android:paddingBottom="20dp">
+
+                        <TextView
+                            android:text="You Pay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:id="@+id/youPayTV"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/totalCost"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/youPay"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="20dp">
-
-                    <TextView
-                        android:text="Number of People"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/pplAmnt"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="20dp">
-
-                    <TextView
-                        android:text="You Pay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/youPay"
-                        android:gravity="center"
-                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
-        <Button
-            android:text="Ok"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/gotIt"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:layout_marginTop="20dp"
-            android:textColor="#32A0A0"
-            android:background="@drawable/customized_btn" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
