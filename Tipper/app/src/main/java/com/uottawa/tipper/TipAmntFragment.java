@@ -60,7 +60,7 @@ public class TipAmntFragment extends Fragment {
             arrow.setTextColor(Color.parseColor("#32A0A0"));
             arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
         }
-        
+
 
         tviews = new TextView[]{
                 (TextView) rootView.findViewById(R.id.star1),
