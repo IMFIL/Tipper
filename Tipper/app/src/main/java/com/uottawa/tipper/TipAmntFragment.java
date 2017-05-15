@@ -1,6 +1,7 @@
 package com.uottawa.tipper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -41,9 +42,25 @@ public class TipAmntFragment extends Fragment {
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
         Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
 
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Long tipDefault = sharedPref.getLong("tipPercentage", 10);
+
+        String tipDefaultString = String.format("%.2f",(Double.longBitsToDouble(tipDefault)));
 
         rootView = inflater.inflate(R.layout.tip_amnt, container,
                 false);
+
+        arrow = (TextView) rootView.findViewById(R.id.arrow);
+
+        EditText tipShowed = (EditText) rootView.findViewById(R.id.totalTipAmnt);
+        tipShowed.setText(tipDefaultString);
+
+        if (!tipDefaultString.equals("")){
+            arrow.setTypeface(fontAwesome);
+            arrow.setTextColor(Color.parseColor("#32A0A0"));
+            arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+        }
+        
 
         tviews = new TextView[]{
                 (TextView) rootView.findViewById(R.id.star1),
@@ -53,7 +70,6 @@ public class TipAmntFragment extends Fragment {
                 (TextView) rootView.findViewById(R.id.star5)
         };
 
-        arrow = (TextView) rootView.findViewById(R.id.arrow);
 
         TextView percentage = (TextView) rootView.findViewById(R.id.percentage);
         percentage.setTypeface(fontAwesome);

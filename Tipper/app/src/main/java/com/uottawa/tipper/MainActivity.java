@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
             public void onClick(View view) {
                 final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 
-                LayoutInflater inflater = getLayoutInflater();
+                final LayoutInflater inflater = getLayoutInflater();
                 dialogView = inflater.inflate(R.layout.settings_page, null);
 
                 final Spinner spinner = (Spinner)dialogView.findViewById(R.id.currency_spinner);
@@ -97,28 +98,41 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
 
                         String currencyText = sharedPref.getString("Currency", "Dollar");
 
+
                         TextView currency = (TextView) findViewById(R.id.curency_sign);
                         EditText defaultTip = (EditText) findViewById(R.id.totalTipAmnt);
 
                         String tip = String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage",10))));
 
-                        defaultTip.setText(tip);
 
-                        switch (currencyText) {
-                            case "Dollar":
-                                currency.setText("\uf155");
-                                currencyTotalPage = "$";
-                                break;
-                            case "Euro":
-                                currency.setText("\uf153");
-                                currencyTotalPage ="€";
-                                break;
-                            case "British Pound":
-                                currency.setText("\uf154");
-                                currencyTotalPage ="£";
-                                break;
-                            default:
-                                break;
+
+                        if (currency == null){
+
+                        }
+                        else {
+                            switch (currencyText) {
+                                case "Dollar":
+                                    currency.setText("\uf155");
+                                    currencyTotalPage = "$";
+                                    break;
+                                case "Euro":
+                                    currency.setText("\uf153");
+                                    currencyTotalPage ="€";
+                                    break;
+                                case "British Pound":
+                                    currency.setText("\uf154");
+                                    currencyTotalPage ="£";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        if (defaultTip == null){
+
+                        }
+                        else{
+                            defaultTip.setText(tip);
                         }
 
                     }
@@ -213,11 +227,18 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
                     TextView totalCostTitle = (TextView) pw.getContentView().findViewById(R.id.totalCostTV);
                     totalCostTitle.setTypeface(sanFran);
 
+                    TextView yourTip = (TextView) pw.getContentView().findViewById(R.id.yourTip );
+                    yourTip.setText(currencyTotalPage+String.format("%.2f", (billAmtn * tipAmnt)/pplAmnt));
+                    yourTip.setTypeface(sanFran);
+                    TextView yourtipTitle = (TextView) pw.getContentView().findViewById(R.id.yourTipTV);
+                    yourtipTitle.setTypeface(sanFran);
+
                     TextView youPay = (TextView) pw.getContentView().findViewById(R.id.youPay );
                     youPay.setText(currencyTotalPage+String.format("%.2f", (billAmtn * (1+tipAmnt))/pplAmnt));
                     youPay.setTypeface(sanFran);
                     TextView youPayTitle = (TextView) pw.getContentView().findViewById(R.id.youPayTV);
                     youPayTitle.setTypeface(sanFran);
+
 
                     pw.showAtLocation(findViewById(R.id.activity_main),Gravity.CENTER,0,0);
                 }
