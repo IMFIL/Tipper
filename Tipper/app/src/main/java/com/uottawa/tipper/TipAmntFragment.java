@@ -84,7 +84,7 @@ public class TipAmntFragment extends Fragment {
                 String tipValue = String.valueOf(tip.getText()).trim();
 
                 if (tipValue.length() != 0 && !numberIn){
-                    double tipamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
+                    double tipamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
                     arrow.setTypeface(fontAwesome);
                     arrow.setTextColor(Color.parseColor("#32A0A0"));
                     arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
@@ -93,7 +93,7 @@ public class TipAmntFragment extends Fragment {
                 }
 
                 else if (numberIn && tipValue.length() != 0 ) {
-                    double tipamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
+                    double tipamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
                     dataPasser.onBooleanTipChange(true,tipamnt);
                 }
 
@@ -169,7 +169,7 @@ public class TipAmntFragment extends Fragment {
                 tviews[i].setTextColor(Color.GRAY);
             }
             currentSelection = number;
-            tip.setText(Integer.toString(number*2+10));
+            tip.setText(String.format("%.2f",(double)number*2+10));
         }
 
     }

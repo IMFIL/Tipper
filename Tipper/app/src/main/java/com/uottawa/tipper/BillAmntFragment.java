@@ -3,17 +3,20 @@ package com.uottawa.tipper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
@@ -38,19 +41,18 @@ public class BillAmntFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-            fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
-            Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
+        rootView = inflater.inflate(R.layout.bill_amnt, container,
+                false);
 
+        fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
+        Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
 
-            rootView = inflater.inflate(R.layout.bill_amnt, container,
-                    false);
+        TextView currency = (TextView) rootView.findViewById(R.id.curency_sign);
 
+        currency.setTypeface(fontAwesome);
 
             TextView or = (TextView) rootView.findViewById(R.id.orText);
             TextView camera = (TextView) rootView.findViewById(R.id.camera);
-
-            TextView currency = (TextView) rootView.findViewById(R.id.curency_sign);
-            currency.setTypeface(fontAwesome);
 
             or.setTypeface(sanFran);
             camera.setTypeface(fontAwesome);
