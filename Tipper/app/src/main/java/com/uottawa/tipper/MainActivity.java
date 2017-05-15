@@ -1,7 +1,8 @@
 package com.uottawa.tipper;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
@@ -12,16 +13,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 
 public class MainActivity extends AppCompatActivity implements booleanBillPass, booleanPplPass, booleanTipPass {
+
     private Typeface fontAwesome;
     private Typeface sanFran;
     private ViewPager mViewPager;
@@ -60,7 +62,30 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //make window pop up with n amnt of tabs
+                LayoutInflater inflater = getLayoutInflater();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                View v = inflater.inflate(R.layout.settings_page, null);
+
+                builder.setView(v);
+
+                AlertDialog dialog = builder.create();
+
+                Spinner spinner = (Spinner)v.findViewById(R.id.currency_spinner);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MainActivity.this,
+                        R.array.currencies, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinner.setAdapter(adapter);
+
+                dialog.show();
             }
         });
 
@@ -196,4 +221,5 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
         tipAmnt = amnt/100;
 
     }
+
 }
