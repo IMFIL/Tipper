@@ -83,7 +83,7 @@ public class BillAmntFragment extends Fragment {
                     String tipValue = String.valueOf(bill.getText()).trim();
 
                     if (tipValue.length() != 0 && !numberIn){
-                        int billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
+                        double billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
                         arrow.setTypeface(fontAwesome);
                         arrow.setTextColor(Color.parseColor("#32A0A0"));
                         arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
@@ -92,8 +92,8 @@ public class BillAmntFragment extends Fragment {
                     }
 
                     else if (numberIn && tipValue.length() != 0 ) {
-                        int billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
-                        dataPasser.onBooleanBillChange(false,billamnt);
+                        double billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
+                        dataPasser.onBooleanBillChange(true,billamnt);
                     }
 
                     else{

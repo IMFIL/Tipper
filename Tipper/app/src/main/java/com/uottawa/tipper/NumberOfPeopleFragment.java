@@ -43,8 +43,16 @@ public class NumberOfPeopleFragment extends Fragment {
                 false);
 
         checkMark = (TextView) rootView.findViewById(R.id.checkMark);
+        checkMark.setTypeface(fontAwesome);
+
 
         ppl = (EditText) rootView.findViewById(R.id.totalpplAmnt);
+        ppl.setText("1");
+
+        checkMark.setTextColor(Color.parseColor("#32A0A0"));
+        checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+        dataPasser.onBooleanPplChange(true,1);
+
         ppl.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -79,7 +87,7 @@ public class NumberOfPeopleFragment extends Fragment {
 
                 else if (numberIn && tipValue.length() != 0 ) {
                     int pplamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalpplAmnt)).getText().toString());
-                    dataPasser.onBooleanPplChange(false,pplamnt);
+                    dataPasser.onBooleanPplChange(true,pplamnt);
                 }
 
                 else{

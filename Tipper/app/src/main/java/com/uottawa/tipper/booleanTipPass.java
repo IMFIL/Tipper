@@ -5,6 +5,6 @@ package com.uottawa.tipper;
  */
 
 public interface booleanTipPass {
-    public void onBooleanTipChange(boolean changed,int amnt);
+    public void onBooleanTipChange(boolean changed,double amnt);
 
 }

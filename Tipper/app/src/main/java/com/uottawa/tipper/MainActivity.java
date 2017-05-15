@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements booleanBillPass, booleanPplPass, booleanTipPass {
+    private Typeface fontAwesome;
+    private Typeface sanFran;
     private ViewPager mViewPager;
     private boolean billPageDone=false;
     private double billAmtn = 0;
@@ -48,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
         mViewPager.setAdapter(new thipPagerAdapter(
                 getSupportFragmentManager()));
 
-        Typeface fontAwesome = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
-        Typeface sanFran = Typeface.createFromAsset(getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
+        fontAwesome = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
+        sanFran = Typeface.createFromAsset(getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
 
         TextView settings = (TextView) findViewById(R.id.settings);
         settings.setTypeface(fontAwesome);
@@ -79,18 +81,48 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
                     int width = dm.widthPixels;
                     int height = dm.heightPixels;
 
-                    PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.summary_window,null, false),(int)(width*.8),(int)(height*.8), true);
+                    final PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.summary_window,null, false),(int)(width*.95),(int)(height*.6), true);
+
+                    TextView xButton = (TextView) pw.getContentView().findViewById(R.id.exitPopUp);
+                    xButton.setTypeface(fontAwesome);
+                    xButton.setTextColor(Color.RED);
+                    xButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            pw.dismiss();
+                        }
+                    });
 
                     TextView billCost = (TextView) pw.getContentView().findViewById(R.id.dinnigCost);
-                    billCost.setText(String.valueOf(billAmtn));
+                    billCost.setText("$"+String.format("%.2f", billAmtn));
+                    billCost.setTypeface(sanFran);
+                    TextView billCostTitle = (TextView) pw.getContentView().findViewById(R.id.dinnigCostTV);
+                    billCostTitle.setTypeface(sanFran);
+
                     TextView tipCost = (TextView)  pw.getContentView().findViewById(R.id.tipAmnt);
-                    tipCost.setText(String.valueOf(tipAmnt*billAmtn));
+                    tipCost.setText("$"+String.format("%.2f", tipAmnt*billAmtn));
+                    tipCost.setTypeface(sanFran);
+                    TextView tipCostTitle = (TextView) pw.getContentView().findViewById(R.id.tipAmntTV);
+                    tipCostTitle.setTypeface(sanFran);
+
                     TextView pplNumber= (TextView) pw.getContentView().findViewById(R.id.pplAmnt);
-                    pplNumber.setText(String.valueOf(pplAmnt));
+                    pplNumber.setText(String.format("%.0f", pplAmnt));
+                    pplNumber.setTypeface(sanFran);
+                    TextView pplNumberTitle = (TextView) pw.getContentView().findViewById(R.id.pplAmntTV);
+                    pplNumberTitle.setTypeface(sanFran);
+
+
                     TextView totalCost = (TextView) pw.getContentView().findViewById(R.id.totalCost);
-                    totalCost.setText(String.valueOf(billAmtn * (1+tipAmnt)));
+                    totalCost.setText("$"+String.format("%.2f", billAmtn * (1+tipAmnt)));
+                    totalCost.setTypeface(sanFran);
+                    TextView totalCostTitle = (TextView) pw.getContentView().findViewById(R.id.totalCostTV);
+                    totalCostTitle.setTypeface(sanFran);
+
                     TextView youPay = (TextView) pw.getContentView().findViewById(R.id.youPay );
-                    youPay.setText(String.valueOf((billAmtn * (1+tipAmnt))/pplAmnt));
+                    youPay.setText("$"+String.format("%.2f", (billAmtn * (1+tipAmnt))/pplAmnt));
+                    youPay.setTypeface(sanFran);
+                    TextView youPayTitle = (TextView) pw.getContentView().findViewById(R.id.youPayTV);
+                    youPayTitle.setTypeface(sanFran);
 
                     pw.showAtLocation(findViewById(R.id.activity_main),Gravity.CENTER,0,0);
                 }
@@ -129,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
     }
 
     @Override
-    public void onBooleanBillChange(boolean changed,int amnt) {
+    public void onBooleanBillChange(boolean changed,double amnt) {
         billPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
         calculateConditions = new boolean [] {
@@ -153,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
     }
 
     @Override
-    public void onBooleanTipChange(boolean changed,int amnt) {
+    public void onBooleanTipChange(boolean changed,double amnt) {
         tipPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
         calculateConditions = new boolean[] {
