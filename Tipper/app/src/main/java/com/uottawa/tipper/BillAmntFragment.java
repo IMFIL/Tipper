@@ -41,7 +41,7 @@ public class BillAmntFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
-        Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
+        final Typeface sanFran = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
 
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         String defaultValue= "Dollar";
@@ -105,7 +105,8 @@ public class BillAmntFragment extends Fragment {
 
                     if (tipValue.length() != 0 && !numberIn){
                         double billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
-                        arrow.setTypeface(fontAwesome);
+                        arrow.setTypeface(sanFran);
+                        arrow.setText("Slide Left");
                         arrow.setTextColor(Color.parseColor("#32A0A0"));
                         arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
                         dataPasser.onBooleanBillChange(true,billamnt);
