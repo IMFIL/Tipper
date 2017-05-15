@@ -111,6 +111,6 @@
         android:id="@+id/arrow"
         android:gravity="center"
         android:textColor="@android:color/transparent"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

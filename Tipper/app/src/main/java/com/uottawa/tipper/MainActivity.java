@@ -280,6 +280,14 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
     public void onBooleanBillChange(boolean changed,double amnt) {
         billPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
+        if (ready){
+            Button getTotal = (Button) findViewById(R.id.getTotal);
+            getTotal.setTextColor(Color.parseColor("#32A0A0"));
+        }
+        else{
+            Button getTotal = (Button) findViewById(R.id.getTotal);
+            getTotal.setTextColor(Color.parseColor("#999999"));
+        }
         calculateConditions = new boolean [] {
                 billPageDone,
                 tipPageDone,
@@ -292,6 +300,14 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
     public void onBooleanPplChange(boolean changed,int amnt) {
         pplPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
+        if (ready){
+            Button getTotal = (Button) findViewById(R.id.getTotal);
+            getTotal.setTextColor(Color.parseColor("#32A0A0"));
+        }
+        else{
+            Button getTotal = (Button) findViewById(R.id.getTotal);
+            getTotal.setTextColor(Color.parseColor("#999999"));
+        }
         calculateConditions = new boolean[]{
                 billPageDone,
                 tipPageDone,
@@ -304,6 +320,14 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
     public void onBooleanTipChange(boolean changed,double amnt) {
         tipPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
+        if (ready){
+            Button getTotal = (Button) findViewById(R.id.getTotal);
+            getTotal.setTextColor(Color.parseColor("#32A0A0"));
+        }
+        else{
+            Button getTotal = (Button) findViewById(R.id.getTotal);
+            getTotal.setTextColor(Color.parseColor("#999999"));
+        }
         calculateConditions = new boolean[] {
                 billPageDone,
                 tipPageDone,
