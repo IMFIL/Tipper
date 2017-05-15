@@ -54,6 +54,8 @@ public class TipAmntFragment extends Fragment {
 
         EditText tipShowed = (EditText) rootView.findViewById(R.id.totalTipAmnt);
         tipShowed.setText(tipDefaultString);
+        dataPasser.onBooleanTipChange(true,Double.longBitsToDouble(tipDefault));
+
 
         if (!tipDefaultString.equals("")){
             arrow.setTypeface(fontAwesome);
