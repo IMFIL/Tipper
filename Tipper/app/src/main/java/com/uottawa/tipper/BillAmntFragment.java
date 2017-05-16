@@ -23,6 +23,7 @@ import android.widget.TextView;
  */
 public class BillAmntFragment extends Fragment {
     private View rootView;
+    private boolean arrowClickable = false;
     private TextView arrow;
     private Typeface fontAwesome;
     private EditText bill;
@@ -78,6 +79,15 @@ public class BillAmntFragment extends Fragment {
 
             arrow = (TextView) rootView.findViewById(R.id.arrow);
 
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(arrowClickable){
+                    ((MainActivity) getActivity()).getPager().setCurrentItem(1);
+                }
+            }
+        });
+
             bill = (EditText) rootView.findViewById(R.id.totalBillAmnt);
             bill.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -105,23 +115,24 @@ public class BillAmntFragment extends Fragment {
 
                     if (tipValue.length() != 0 && !numberIn){
                         double billamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
-                        arrow.setTypeface(sanFran);
-                        arrow.setText("Slide Left");
+                        arrow.setTypeface(fontAwesome);
                         arrow.setTextColor(Color.parseColor("#32A0A0"));
                         arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
                         dataPasser.onBooleanBillChange(true,billamnt);
+                        arrowClickable = true;
 
                     }
 
                     else if (numberIn && tipValue.length() != 0 ) {
                         double billamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalBillAmnt)).getText().toString());
                         dataPasser.onBooleanBillChange(true,billamnt);
+                        arrowClickable = true;
                     }
 
                     else{
                         arrow.setTextColor(Color.TRANSPARENT);
                         dataPasser.onBooleanBillChange(false,0);
-
+                        arrowClickable = false;
                     }
 
                 }

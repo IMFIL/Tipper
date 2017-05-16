@@ -6,15 +6,15 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,10 +26,10 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements booleanBillPass, booleanPplPass, booleanTipPass {
-
     private View dialogView;
     private Typeface fontAwesome;
     private Typeface sanFran;
+    private Typeface sanFranBolder;
     private String currencyTotalPage = "$";
     private ViewPager mViewPager;
     private boolean billPageDone=false;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
             pplPageDone
     };
 
-    private boolean ready = false;
+    protected boolean ready = false;
 
 
 
@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
 
         fontAwesome = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
         sanFran = Typeface.createFromAsset(getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
+        sanFranBolder = Typeface.createFromAsset(getAssets(), "fonts/SanFranciscoDisplay-Semibold.otf");
+
 
         TextView settings = (TextView) findViewById(R.id.settings);
         settings.setTypeface(fontAwesome);
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
         });
 
         Button getTotal = (Button) findViewById(R.id.getTotal);
-        getTotal.setTypeface(sanFran);
+        getTotal.setTypeface(sanFranBolder);
         getTotal.setTextColor(Color.parseColor("#999999"));
 
         getTotal.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +200,16 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
                     xButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                            mViewPager.setAdapter(new thipPagerAdapter(
+                            getSupportFragmentManager()));
+                            EditText billamnt =  (EditText) findViewById(R.id.totalBillAmnt);
+                            billamnt.getText().clear();
+
+                            EditText defaultTip = (EditText) findViewById(R.id.totalTipAmnt);
+                            String tip = String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage",10))));
+                            defaultTip.setText(tip);
+
                             pw.dismiss();
                         }
                     });
@@ -278,8 +290,15 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
 
     @Override
     public void onBooleanBillChange(boolean changed,double amnt) {
+        final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+
         billPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
+        editor.putBoolean("totalDone",ready);
+        editor.apply();
+
         if (ready){
             Button getTotal = (Button) findViewById(R.id.getTotal);
             getTotal.setTextColor(Color.parseColor("#32A0A0"));
@@ -298,8 +317,14 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
 
     @Override
     public void onBooleanPplChange(boolean changed,int amnt) {
+        final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
         pplPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
+        editor.putBoolean("totalDone",ready);
+        editor.apply();
+
         if (ready){
             Button getTotal = (Button) findViewById(R.id.getTotal);
             getTotal.setTextColor(Color.parseColor("#32A0A0"));
@@ -318,8 +343,13 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
 
     @Override
     public void onBooleanTipChange(boolean changed,double amnt) {
+        final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
         tipPageDone = changed;
         ready = billPageDone && tipPageDone && pplPageDone;
+        editor.putBoolean("totalDone",ready);
+        editor.apply();
         if (ready){
             Button getTotal = (Button) findViewById(R.id.getTotal);
             getTotal.setTextColor(Color.parseColor("#32A0A0"));
@@ -335,6 +365,10 @@ public class MainActivity extends AppCompatActivity implements booleanBillPass, 
         };
         tipAmnt = amnt/100;
 
+    }
+
+    public ViewPager getPager() {
+        return mViewPager;
     }
 
 }

@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -25,6 +27,8 @@ public class TipAmntFragment extends Fragment {
     private Typeface fontAwesome;
     private EditText tip;
     private TextView arrow;
+    private boolean arrowClickable = true;
+    private boolean systemText = false;
     private boolean numberIn;
 
     private booleanTipPass dataPasser;
@@ -36,7 +40,7 @@ public class TipAmntFragment extends Fragment {
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
@@ -52,14 +56,22 @@ public class TipAmntFragment extends Fragment {
 
         arrow = (TextView) rootView.findViewById(R.id.arrow);
 
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(arrowClickable){
+                    ((MainActivity) getActivity()).getPager().setCurrentItem(2);
+                }
+            }
+        });
+
         EditText tipShowed = (EditText) rootView.findViewById(R.id.totalTipAmnt);
         tipShowed.setText(tipDefaultString);
         dataPasser.onBooleanTipChange(true,Double.longBitsToDouble(tipDefault));
 
 
         if (!tipDefaultString.equals("")){
-            arrow.setTypeface(sanFran);
-            arrow.setText("Slide Left");
+            arrow.setTypeface(fontAwesome);
             arrow.setTextColor(Color.parseColor("#32A0A0"));
             arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
         }
@@ -94,33 +106,36 @@ public class TipAmntFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                clearStarRating();
                 String tipValue = String.valueOf(tip.getText()).trim();
 
                 if (tipValue.length() != 0 && !numberIn){
                     double tipamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
-                    arrow.setTypeface(sanFran);
-                    arrow.setText("Slide Left");
+                    arrow.setTypeface(fontAwesome);
                     arrow.setTextColor(Color.parseColor("#32A0A0"));
                     arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+                    arrowClickable = true;
                     dataPasser.onBooleanTipChange(true,tipamnt);
 
                 }
 
                 else if (numberIn && tipValue.length() != 0 ) {
                     double tipamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
+                    arrowClickable = true;
                     dataPasser.onBooleanTipChange(true,tipamnt);
                 }
 
                 else{
                     arrow.setTextColor(Color.TRANSPARENT);
+                    arrowClickable = false;
                     dataPasser.onBooleanTipChange(false,0);
                 }
+
+                systemText = false;
 
             }
         });
@@ -177,6 +192,8 @@ public class TipAmntFragment extends Fragment {
         }
 
         else {
+            systemText = true;
+
             for (int i = 0; i <= number; i++) {
                 tviews[i].setText("\uf005");
                 tviews[i].setTypeface(fontAwesome);
@@ -192,6 +209,19 @@ public class TipAmntFragment extends Fragment {
             tip.setText(String.format("%.2f",(double)number*2+10));
         }
 
+    }
+
+
+    private void clearStarRating(){
+
+        if (!systemText){
+            for(int i=0;i<tviews.length;i++){
+                tviews[i].setText("\uf006");
+                tviews[i].setTypeface(fontAwesome);
+                tviews[i].setTextColor(Color.GRAY);
+            }
+            currentSelection = -1;
+        }
     }
 
 }

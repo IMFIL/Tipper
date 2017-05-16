@@ -1,6 +1,7 @@
 package com.uottawa.tipper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class NumberOfPeopleFragment extends Fragment {
 
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
 
+        final SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
         rootView = inflater.inflate(R.layout.people_amnt, container,
                 false);
 
@@ -47,11 +50,14 @@ public class NumberOfPeopleFragment extends Fragment {
 
 
         ppl = (EditText) rootView.findViewById(R.id.totalpplAmnt);
+        ppl.setSaveEnabled(false);
         ppl.setText("1");
-
-        checkMark.setTextColor(Color.parseColor("#32A0A0"));
-        checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
         dataPasser.onBooleanPplChange(true,1);
+
+        if (sharedPref.getBoolean("totalDone", false)){
+            checkMark.setTextColor(Color.parseColor("#32A0A0"));
+            checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+        }
 
         ppl.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,8 +85,10 @@ public class NumberOfPeopleFragment extends Fragment {
                 if (tipValue.length() != 0 && !numberIn){
                     int pplamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalpplAmnt)).getText().toString());
                     checkMark.setTypeface(fontAwesome);
-                    checkMark.setTextColor(Color.parseColor("#32A0A0"));
-                    checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+                    if (sharedPref.getBoolean("totalDone", false)){
+                        checkMark.setTextColor(Color.parseColor("#32A0A0"));
+                        checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+                    }
                     dataPasser.onBooleanPplChange(true,pplamnt);
 
                 }

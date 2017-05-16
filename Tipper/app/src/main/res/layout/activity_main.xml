@@ -59,18 +59,22 @@
 
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="15dp"
+        android:layout_margin="15dp"
         android:gravity="center">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/mainPager"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:foregroundGravity="center"
-            android:layout_height="375dp" />
+            android:layout_height="wrap_content"
+            android:id="@+id/mainPagerContainer">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/mainPager"
+                android:layout_width="match_parent"
+                android:layout_height="375dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -92,7 +96,7 @@
             android:layout_marginRight="45dp"
             android:text="Calculate Total"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
     </LinearLayout>
 
 </RelativeLayout>
