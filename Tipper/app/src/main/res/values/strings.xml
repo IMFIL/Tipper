@@ -3,8 +3,8 @@
     <string name="app_name">Thip</string>
 
         <string-array name="currencies">
-            <item>Dollar</item>
-            <item>British Pound</item>
-            <item>Euro</item>
+            <item>Dollar($)</item>
+            <item>British Pound(£)</item>
+            <item>Euro(€)</item>
         </string-array>
 </resources>

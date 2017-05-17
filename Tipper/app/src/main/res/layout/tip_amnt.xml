@@ -4,7 +4,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:id="@+id/tipAmntFrag">
+    android:id="@+id/tipAmntFrag"
+    android:layout_weight="1">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app ="http://schemas.android.com/apk/res-auto"
@@ -12,7 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -93,7 +99,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp">
 
         <TextView
             android:text="&#xf006;"
@@ -141,13 +149,34 @@
             android:textSize="30sp"/>
     </LinearLayout>
 
-    <TextView
-        android:text="&#xf054;"
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/arrow"
-        android:gravity="center"
-        android:textColor="@android:color/transparent"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="&#xf053;"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowLeft"
+            android:textColor="@android:color/transparent"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="35dp" />
+
+        <TextView
+            android:text="&#xf054;"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowRight"
+            android:textColor="@android:color/transparent"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:paddingLeft="35dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

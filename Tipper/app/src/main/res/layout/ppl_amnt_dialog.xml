@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="20dp">
+
+    <EditText
+        android:inputType="number"
+        android:hint="How Many People Dined"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:id="@+id/totalpplAmnt"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:background="@drawable/list_view_underline"
+        android:layout_margin="20dp" />
+
+</LinearLayout>
