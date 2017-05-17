@@ -4,7 +4,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:id="@+id/tipAmntFrag">
+    android:id="@+id/tipAmntFrag"
+    android:layout_weight="1">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app ="http://schemas.android.com/apk/res-auto"
@@ -148,13 +149,34 @@
             android:textSize="30sp"/>
     </LinearLayout>
 
-    <TextView
-        android:text="&#xf054;"
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/arrow"
-        android:gravity="center"
-        android:textColor="@android:color/transparent"
-        android:textSize="25sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="&#xf053;"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowLeft"
+            android:textColor="@android:color/transparent"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="35dp" />
+
+        <TextView
+            android:text="&#xf054;"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowRight"
+            android:textColor="@android:color/transparent"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:paddingLeft="35dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

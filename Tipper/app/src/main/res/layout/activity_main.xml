@@ -70,33 +70,43 @@
             android:layout_height="wrap_content"
             android:id="@+id/mainPagerContainer">
 
-            <android.support.v4.view.ViewPager
+            <com.uottawa.tipper.CustomViewPager
                 android:id="@+id/mainPager"
                 android:layout_width="match_parent"
                 android:layout_height="375dp" />
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:gravity="bottom">
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/getTotal"
-            android:layout_weight="1"
-            android:background="@drawable/customized_btn"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:text="Calculate Total"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="22sp" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="&#xf111;"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/indicator1"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:text="&#xf10c;"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/indicator2"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:text="&#xf10c;"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/indicator3" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </RelativeLayout>

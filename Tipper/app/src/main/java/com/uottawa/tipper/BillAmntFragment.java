@@ -84,6 +84,7 @@ public class BillAmntFragment extends Fragment {
             public void onClick(View v) {
                 if(arrowClickable){
                     ((MainActivity) getActivity()).getPager().setCurrentItem(1);
+                    ((MainActivity) getActivity()).changeIndicatorLevel(2);
                 }
             }
         });

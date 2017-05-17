@@ -26,7 +26,8 @@ public class TipAmntFragment extends Fragment {
     private int currentSelection = -1;
     private Typeface fontAwesome;
     private EditText tip;
-    private TextView arrow;
+    private TextView arrowRight;
+    private TextView arrowLeft;
     private boolean arrowClickable = true;
     private boolean systemText = false;
     private boolean numberIn;
@@ -54,16 +55,30 @@ public class TipAmntFragment extends Fragment {
         rootView = inflater.inflate(R.layout.tip_amnt, container,
                 false);
 
-        arrow = (TextView) rootView.findViewById(R.id.arrow);
+        arrowRight = (TextView) rootView.findViewById(R.id.arrowRight);
 
-        arrow.setOnClickListener(new View.OnClickListener() {
+        arrowRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(arrowClickable){
                     ((MainActivity) getActivity()).getPager().setCurrentItem(2);
+                    ((MainActivity) getActivity()).changeIndicatorLevel(3);
                 }
             }
         });
+
+        arrowLeft = (TextView) rootView.findViewById(R.id.arrowLeft);
+
+        arrowLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    ((MainActivity) getActivity()).getPager().setCurrentItem(0);
+                ((MainActivity) getActivity()).changeIndicatorLevel(1);
+            }
+        });
+
+        arrowLeft.setTypeface(fontAwesome);
+        arrowLeft.setTextColor(Color.parseColor("#32A0A0"));
 
         EditText tipShowed = (EditText) rootView.findViewById(R.id.totalTipAmnt);
         tipShowed.setText(tipDefaultString);
@@ -71,9 +86,9 @@ public class TipAmntFragment extends Fragment {
 
 
         if (!tipDefaultString.equals("")){
-            arrow.setTypeface(fontAwesome);
-            arrow.setTextColor(Color.parseColor("#32A0A0"));
-            arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+            arrowRight.setTypeface(fontAwesome);
+            arrowRight.setTextColor(Color.parseColor("#32A0A0"));
+            arrowRight.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
         }
 
 
@@ -115,9 +130,9 @@ public class TipAmntFragment extends Fragment {
 
                 if (tipValue.length() != 0 && !numberIn){
                     double tipamnt = Double.parseDouble(((EditText) rootView.findViewById(R.id.totalTipAmnt)).getText().toString());
-                    arrow.setTypeface(fontAwesome);
-                    arrow.setTextColor(Color.parseColor("#32A0A0"));
-                    arrow.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+                    arrowRight.setTypeface(fontAwesome);
+                    arrowRight.setTextColor(Color.parseColor("#32A0A0"));
+                    arrowRight.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
                     arrowClickable = true;
                     dataPasser.onBooleanTipChange(true,tipamnt);
 
@@ -130,7 +145,7 @@ public class TipAmntFragment extends Fragment {
                 }
 
                 else{
-                    arrow.setTextColor(Color.TRANSPARENT);
+                    arrowRight.setTextColor(Color.TRANSPARENT);
                     arrowClickable = false;
                     dataPasser.onBooleanTipChange(false,0);
                 }

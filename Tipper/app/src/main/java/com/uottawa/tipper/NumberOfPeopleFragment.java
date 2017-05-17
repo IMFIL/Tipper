@@ -1,19 +1,27 @@
 package com.uottawa.tipper;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.ArrayList;
 
 /**
  * Created by filipslatinac on 2017-05-11.
@@ -22,8 +30,12 @@ public class NumberOfPeopleFragment extends Fragment {
     private View rootView;
     private Typeface fontAwesome;
     private TextView checkMark;
-    private EditText ppl;
-    private boolean numberIn;
+    private TextView arrowLeft;
+
+
+
+    ArrayList<String> numberOfPpl = new ArrayList<>();
+    private MaterialBetterSpinner spinner = null;
 
     private booleanPplPass dataPasser;
 
@@ -37,75 +49,144 @@ public class NumberOfPeopleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        numberOfPplFiller();
 
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
-
-        final SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 
         rootView = inflater.inflate(R.layout.people_amnt, container,
                 false);
 
+        arrowLeft = (TextView) rootView.findViewById(R.id.arrowLeft);
+
+        arrowLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    ((MainActivity) getActivity()).getPager().setCurrentItem(1);
+                ((MainActivity) getActivity()).changeIndicatorLevel(2);
+            }
+        });
+
+        arrowLeft.setTypeface(fontAwesome);
+        arrowLeft.setTextColor(Color.parseColor("#32A0A0"));
+        arrowLeft.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
+
         checkMark = (TextView) rootView.findViewById(R.id.checkMark);
         checkMark.setTypeface(fontAwesome);
+        checkMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).lauchCalculateTotal();
+            }
+        });
 
+        spinner = (MaterialBetterSpinner) rootView.findViewById(R.id.ppl_spinner);
 
-        ppl = (EditText) rootView.findViewById(R.id.totalpplAmnt);
-        ppl.setSaveEnabled(false);
-        ppl.setText("1");
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, numberOfPpl);
+        spinner.setAdapter(adapter);
+
         dataPasser.onBooleanPplChange(true,1);
 
-        if (sharedPref.getBoolean("totalDone", false)){
-            checkMark.setTextColor(Color.parseColor("#32A0A0"));
-            checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
-        }
+        checkMark.setTextColor(Color.parseColor("#32A0A0"));
+        checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
 
-        ppl.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String tipValue = String.valueOf(ppl.getText()).trim();
-
-                if (tipValue.length() != 0 ){
-                    numberIn = true;
-                }
-
-                else {
-                    numberIn = false;
-                }
-            }
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int value = 0;
+                String valueString = spinner.getText().toString();
+                if(valueString.equals("More")){
 
-            }
+                    final LayoutInflater inflater = getActivity().getLayoutInflater();
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String tipValue = String.valueOf(ppl.getText()).trim();
+                    final View dialogView = inflater.inflate(R.layout.ppl_amnt_dialog, null);
 
-                if (tipValue.length() != 0 && !numberIn){
-                    int pplamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalpplAmnt)).getText().toString());
-                    checkMark.setTypeface(fontAwesome);
-                    if (sharedPref.getBoolean("totalDone", false)){
-                        checkMark.setTextColor(Color.parseColor("#32A0A0"));
-                        checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
-                    }
-                    dataPasser.onBooleanPplChange(true,pplamnt);
+                    final AlertDialog dialog = new AlertDialog.Builder(getContext())
+                            .setPositiveButton(android.R.string.ok, null)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .setView(dialogView)
+                            .create();
 
-                }
+                    dialog.setOnCancelListener(
+                            new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    numberOfPplFiller();
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.single_listview_item, R.id.txtitem, numberOfPpl);
+                                    spinner.setAdapter(adapter);
+                                    dialog.dismiss();
+                                }
+                            }
+                    );
 
-                else if (numberIn && tipValue.length() != 0 ) {
-                    int pplamnt = Integer.parseInt(((EditText) rootView.findViewById(R.id.totalpplAmnt)).getText().toString());
-                    dataPasser.onBooleanPplChange(true,pplamnt);
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                        @Override
+                        public void onShow( final DialogInterface dialog) {
+
+                            Button buttonOk = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                            buttonOk.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View view) {
+                                    String entered = ((EditText)dialogView.findViewById(R.id.totalpplAmnt)).getText().toString();
+
+                                    if (entered.equals("") || entered.equals("0")){
+                                        Toast toast = Toast.makeText(getActivity()
+                                                .getApplicationContext(), "Please enter the number of people or cancel", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+
+                                    else{
+                                        updateNumberOfPpl(Integer.parseInt(entered));
+                                        spinner.setText(numberOfPpl.get(numberOfPpl.size()-1));
+                                        spinner.setAdapter(adapter);
+                                        dataPasser.onBooleanPplChange(true,Integer.parseInt(entered));
+                                        dialog.dismiss();
+                                    }
+                                }
+                            });
+
+                            Button buttonCancel = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                            buttonCancel.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View view) {
+                                    numberOfPplFiller();
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.single_listview_item, R.id.txtitem, numberOfPpl);
+                                    spinner.setAdapter(adapter);
+                                    dialog.dismiss();
+                                }
+                            });
+
+                        }
+                    });
+
+                    dialog.show();
                 }
 
                 else{
-                    checkMark.setTextColor(Color.TRANSPARENT);
-                    dataPasser.onBooleanPplChange(false,0);
+                    value = Integer.parseInt(valueString);
                 }
-
+                dataPasser.onBooleanPplChange(true,value);
             }
         });
 
         return rootView;
+    }
+
+    private void numberOfPplFiller(){
+        numberOfPpl = new ArrayList<String>();
+        for(int i=1;i<=5;i++){
+            numberOfPpl.add(String.valueOf(i));
+        }
+        numberOfPpl.add("More");
+    }
+
+    private void updateNumberOfPpl(int addition){
+        numberOfPplFiller();
+        numberOfPpl.add(String.valueOf(addition));
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, numberOfPpl);
+        spinner.setAdapter(adapter);
     }
 }
