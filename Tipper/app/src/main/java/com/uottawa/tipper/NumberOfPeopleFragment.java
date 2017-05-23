@@ -3,6 +3,7 @@ package com.uottawa.tipper;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -51,6 +52,8 @@ public class NumberOfPeopleFragment extends Fragment {
                              Bundle savedInstanceState) {
         numberOfPplFiller();
 
+        final SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
         fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fontawesome-webfont.ttf");
 
         rootView = inflater.inflate(R.layout.people_amnt, container,
@@ -75,16 +78,19 @@ public class NumberOfPeopleFragment extends Fragment {
         checkMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).lauchCalculateTotal();
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("People",spinner.getText().toString());
+                editor.apply();
+//                ((MainActivity) getActivity()).lauchCalculateTotal();
             }
         });
 
         spinner = (MaterialBetterSpinner) rootView.findViewById(R.id.ppl_spinner);
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, numberOfPpl);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.single_listview_item, R.id.txtitem, numberOfPpl);
+        spinner.setText(sharedPref.getString("People","1"));
         spinner.setAdapter(adapter);
-
-        dataPasser.onBooleanPplChange(true,1);
+        dataPasser.onBooleanPplChange(true,Integer.parseInt(sharedPref.getString("People","1")));
 
         checkMark.setTextColor(Color.parseColor("#32A0A0"));
         checkMark.startAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left));
@@ -112,6 +118,7 @@ public class NumberOfPeopleFragment extends Fragment {
                                 @Override
                                 public void onCancel(DialogInterface dialog) {
                                     numberOfPplFiller();
+                                    spinner.setText(sharedPref.getString("People","1"));
                                     final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.single_listview_item, R.id.txtitem, numberOfPpl);
                                     spinner.setAdapter(adapter);
                                     dialog.dismiss();
@@ -153,6 +160,7 @@ public class NumberOfPeopleFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     numberOfPplFiller();
+                                    spinner.setText(sharedPref.getString("People","1"));
                                     final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.single_listview_item, R.id.txtitem, numberOfPpl);
                                     spinner.setAdapter(adapter);
                                     dialog.dismiss();

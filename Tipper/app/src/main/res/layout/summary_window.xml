@@ -5,47 +5,47 @@
     android:id="@+id/window"
     android:background="#80000000">
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
+            android:text="&#xf00d;"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:id="@+id/exitPopUp"
+            android:textSize="30sp"
+            android:gravity="top|right"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp" />
 
-            <TextView
-                android:text="&#xf00d;"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/exitPopUp"
-                android:textSize="30sp"
-                android:gravity="top|right"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingBottom="20dp">
+                        android:paddingBottom="20dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:text="Dinning Cost"
@@ -69,7 +69,8 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingBottom="20dp">
+                        android:paddingBottom="20dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:text="Total Tip"
@@ -93,7 +94,8 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingBottom="20dp">
+                        android:paddingBottom="20dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:text="Total Cost"
@@ -119,7 +121,8 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingBottom="20dp">
+                        android:paddingBottom="20dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:text="Number of People"
@@ -141,74 +144,62 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="20dp">
-
-                        <RelativeLayout android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:layout_margin="20dp">
-
-
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="0dp"
-                                android:background="#FFF"
-                                />
-
-
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:text="Your Tip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="30sp"
-                            android:id="@+id/yourTipTV"
-                            android:gravity="center"
-                            android:textColor="@android:color/white" />
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/yourTip"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:text="You Pay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="30sp"
-                            android:id="@+id/youPayTV"
-                            android:gravity="center"
-                            android:textColor="@android:color/white" />
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/youPay"
-                            android:textSize="20sp"
-                            android:gravity="center"
-                            android:textColor="@android:color/white" />
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </LinearLayout>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="#FFF"
+                android:layout_marginBottom="35dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="20dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="Your Tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:id="@+id/yourTipTV"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yourTip"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:text="You Pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:id="@+id/youPayTV"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/youPay"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
 </RelativeLayout>
