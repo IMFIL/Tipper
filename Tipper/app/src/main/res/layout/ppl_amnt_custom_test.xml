@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pplIconMultiplication"
+                android:layout_weight="1"
+                android:text="&#xf007;"
+                android:gravity="right|center_vertical"
+                android:textSize="20sp" />
+
+            <TextView
+                android:text="&#xf00d;"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pplMultiplication"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="16sp" />
+
+            <EditText
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:id="@+id/pplInput"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:background="@drawable/list_view_underline"
+                android:layout_weight="0.9"
+                android:layout_marginRight="70dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lessThan5TextButton"
+                android:textSize="18sp"
+                android:text="&#xf068;"
+                android:gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
