@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,6 +69,7 @@ public class customPercentageFragment extends Fragment {
         percentageIcon.setTypeface(fontAwesome);
 
         totalTipAmnt = (EditText) rootView.findViewById(R.id.totalTipAmnt);
+        totalTipAmnt.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(10,2)});
         totalTipAmnt.setText(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
         totalTipAmnt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -105,7 +107,6 @@ public class customPercentageFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && initialized) {
-            totalTipAmnt.setText(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
 
             String tipValue = String.valueOf(totalTipAmnt.getText()).trim();
 
@@ -118,8 +119,9 @@ public class customPercentageFragment extends Fragment {
 
 
             else{
-                ((MainActivity)getActivity()).percentageViewChange("0");
-                ((MainActivity)getActivity()).onBooleanTipChange(false);
+                ((MainActivity)getActivity()).percentageViewChange(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
+                totalTipAmnt.setText(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
+                ((MainActivity)getActivity()).onBooleanTipChange(true);
             }
 
         }
