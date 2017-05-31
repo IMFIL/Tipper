@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -30,6 +31,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private TextView[] starIcons;
     private TextView[] pplIcons;
+
+    private SharedPreferences sharedPref = null;
+
 
     private int currentSelectionPpl = -1;
     private int currentSelectionStar = -1;
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_testview);
 
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+
         fontAwesome = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
         sanFran = Typeface.createFromAsset(getAssets(), "fonts/SanFranciscoDisplay-Light.otf");
         sanFranBolder = Typeface.createFromAsset(getAssets(), "fonts/SanFranciscoDisplay-Semibold.otf");
@@ -98,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         percentageView = (TextView) findViewById(R.id.percentageView);
         percentageView.setTypeface(sanFran);
+        percentageViewChange(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
 
 
         peopleView = (TextView) findViewById(R.id.pplView);
@@ -110,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         billAmount = (EditText) findViewById(R.id.totalBillAmnt);
+        billAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(10,2)});
         billAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -243,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
                 final Spinner spinner = (Spinner)dialogView.findViewById(R.id.currency_spinner);
                 final EditText tipPercentage = (EditText) dialogView.findViewById(R.id.percentage_default);
 
+                tipPercentage.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(10,2)});
+
                 tipPercentage.setText(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
 
 
@@ -267,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.apply();
                             EditText totalTipAmnt = (EditText) findViewById(R.id.totalTipAmnt);
                             totalTipAmnt.setText(String.format("%.2f",(Double.longBitsToDouble(sharedPref.getLong("tipPercentage", 0)))));
+                            getTipPager().setCurrentItem(0);
                         }
 
 
@@ -399,8 +411,6 @@ public class MainActivity extends AppCompatActivity {
             xButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-
                     pw.dismiss();
                 }
             });
